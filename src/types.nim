@@ -57,9 +57,10 @@ type
     tweetNotAuthorized = 179
     forbidden = 200
     badToken = 239
+    authorizationError = 326
     noCsrf = 353
     tweetUnavailable = 421
-    tweetCensored = 422
+    tweetCensored = 426
 
   VerifiedType* = enum
     none = "None"
