@@ -13,7 +13,7 @@ jobs:
     uses: ./.github/workflows/run-tests.yml
   build-docker-amd64:
     needs: [tests]
-    runs-on: buildjet-2vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
