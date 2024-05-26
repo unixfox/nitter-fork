@@ -45,7 +45,7 @@ Twitter account.
 ### Credit/debit card and bank transfer
 
 Liberapay(recurrent donation): <https://liberapay.com/yewtube> \
-Ko-fi (one time donation): https://ko-fi.com/yewtube \
+Ko-fi (one time donation): <https://ko-fi.com/yewtube>
 
 ### Cryptocurrency
 
@@ -60,7 +60,7 @@ Dash: Xdtr4fFe3U56mmQVi3iC5aW2LRNRb95Gbg \
 Decred: DsY4tZLcikXjJwdLBFr2pYWgGPatY9y81cZ \
 Binance coin: bnb10vd22k3ujp9ezjc6s8x7vqvuh02hlvcwqtsepq (you can send any BEP20 token) \
 Litecoin: ltc1qre3xwwjsnctpfrx6eu0y77nca3cwlhe8kzy27d \
-USD Coin: 0xd415a7A9455DBf1a666F933c78A7325914E73C6b (ETH) - bnb10vd22k3ujp9ezjc6s8x7vqvuh02hlvcwqtsepq (BNB) \
+USD Coin: 0xd415a7A9455DBf1a666F933c78A7325914E73C6b (ETH) - bnb10vd22k3ujp9ezjc6s8x7vqvuh02hlvcwqtsepq (BNB)
 
 ## Contact
 
