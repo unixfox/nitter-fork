@@ -13,7 +13,7 @@ import routes/[
   unsupported, embed, resolver, router_utils]
 
 const instancesUrl = "https://github.com/zedeus/nitter/wiki/Instances"
-const issuesUrl = "https://github.com/zedeus/nitter/issues"
+const issuesUrl = "https://github.com/unixfox/nitter-fork/issues"
 
 let
   configPath = getEnv("NITTER_CONF_FILE", "./nitter.conf")

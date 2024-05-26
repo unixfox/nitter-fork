@@ -5,7 +5,7 @@ import karax/[karaxdsl, vdom]
 const
   date = staticExec("git show -s --format=\"%cd\" --date=format:\"%Y.%m.%d\"")
   hash = staticExec("git show -s --format=\"%h\"")
-  link = "https://github.com/zedeus/nitter/commit/" & hash
+  link = "https://github.com/unixfox/nitter-fork/commit/" & hash
   version = &"{date}-{hash}"
 
 var aboutHtml: string
