@@ -42,13 +42,26 @@ Twitter account.
 
 ## Donating
 
-Liberapay: <https://liberapay.com/zedeus> \
-Patreon: <https://patreon.com/nitter> \
-BTC: bc1qp7q4qz0fgfvftm5hwz3vy284nue6jedt44kxya \
-ETH: 0x66d84bc3fd031b62857ad18c62f1ba072b011925 \
-LTC: ltc1qhsz5nxw6jw9rdtw9qssjeq2h8hqk2f85rdgpkr \
-XMR: 42hKayRoEAw4D6G6t8mQHPJHQcXqofjFuVfavqKeNMNUZfeJLJAcNU19i1bGdDvcdN6romiSscWGWJCczFLe9RFhM3d1zpL
+### Credit/debit card and bank transfer
+
+Liberapay(recurrent donation): <https://liberapay.com/yewtube> \
+Ko-fi (one time donation): https://ko-fi.com/yewtube \
+
+### Cryptocurrency
+
+Bitcoin: 1fyoJKdFo5cDPt21CGHW2RDQtcktQU9cL (Segwit compatible) \
+Bitcoin cash: qz6qvjt9m4wqrqhyet3v3gljrpnys3wl2yxz0jfuu2 \
+Ethereum: 0x52B72e00be486C03C9b09AA0D441ADE1EfA5d2CB (you can send any ERC20 token) \
+Monero: 82VziQe69ynRNKZ2Bk7XcoYUA6Q1eRuPyGxV3gVWDju7EPkUXZE2oGTGWiah51cCKRMAmwTY11D6qcH3NpGtfdjcNccmXL5 \
+Nano: nano_3hrphgbgi4px1gfiftsphokukcj1tkk168it6xeetxpc9c7jt5e6i7kmjupi \
+Stellar: GB5LHWSIOM6BRO7CMWRMWVWJUGPCKVRAVINGUJHA7PYP3CHES2XCMDG5 \
+Dogecoin: D6dsXSZEp1rkqvLAV41QxXTPPgvDSU2rjo \
+Dash: Xdtr4fFe3U56mmQVi3iC5aW2LRNRb95Gbg \
+Decred: DsY4tZLcikXjJwdLBFr2pYWgGPatY9y81cZ \
+Binance coin: bnb10vd22k3ujp9ezjc6s8x7vqvuh02hlvcwqtsepq (you can send any BEP20 token) \
+Litecoin: ltc1qre3xwwjsnctpfrx6eu0y77nca3cwlhe8kzy27d \
+USD Coin: 0xd415a7A9455DBf1a666F933c78A7325914E73C6b (ETH) - bnb10vd22k3ujp9ezjc6s8x7vqvuh02hlvcwqtsepq (BNB) \
 
 ## Contact
 
-Feel free to join our [Matrix channel](https://matrix.to/#/#nitter:matrix.org).
+Feel free to join Nitter [Matrix channel](https://matrix.to/#/#nitter:matrix.org).
