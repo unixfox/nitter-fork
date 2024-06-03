@@ -24,6 +24,8 @@ proc renderNavbar(cfg: Config; req: Request; rss, canonical: string): VNode =
     tdiv(class="inner-nav"):
       tdiv(class="nav-item"):
         a(class="site-name", href="/"): text cfg.title
+        a(href="/donate"): text "(donate)"
+
 
       a(href="/"): img(class="site-logo", src="/logo.png", alt="Logo")
 
