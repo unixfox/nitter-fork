@@ -33,21 +33,21 @@ proc getVidUrl*(link: string): string =
   if link.len == 0: return
   let sig = getHmac(link)
   if base64Media:
-    &"/video/enc/{sig}/{encode(link, safe=true)}"
+    &"https://cdn.xcancel.com/video/enc/{sig}/{encode(link, safe=true)}"
   else:
-    &"/video/{sig}/{encodeUrl(link)}"
+    &"https://cdn.xcancel.com/video/{sig}/{encodeUrl(link)}"
 
 proc getPicUrl*(link: string): string =
   if base64Media:
-    &"/pic/enc/{encode(link, safe=true)}"
+    &"https://cdn.xcancel.com/pic/enc/{encode(link, safe=true)}"
   else:
-    &"/pic/{encodeUrl(link)}"
+    &"https://cdn.xcancel.com/pic/{encodeUrl(link)}"
 
 proc getOrigPicUrl*(link: string): string =
   if base64Media:
-    &"/pic/orig/enc/{encode(link, safe=true)}"
+    &"https://cdn.xcancel.com/pic/orig/enc/{encode(link, safe=true)}"
   else:
-    &"/pic/orig/{encodeUrl(link)}"
+    &"https://cdn.xcancel.com/pic/orig/{encodeUrl(link)}"
 
 proc filterParams*(params: Table): seq[(string, string)] =
   for p in params.pairs():
