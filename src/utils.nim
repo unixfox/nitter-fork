@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 import strutils, strformat, uri, tables, base64
 import nimcrypto
+import std/times
 
 var
   hmacKey: string
@@ -19,6 +20,7 @@ const
     "video.twimg.com",
     "x.com"
   ]
+  now = now()
 
 proc setHmacKey*(key: string) =
   hmacKey = key
@@ -27,7 +29,7 @@ proc setProxyEncoding*(state: bool) =
   base64Media = state
 
 proc getHmac*(data: string): string =
-  ($hmac(sha256, hmacKey, data))[0 .. 12]
+  ($hmac(sha256, hmacKey, data + string(now().year + int(now().month) + now().monthDay)))[0 .. 12]
 
 proc getVidUrl*(link: string): string =
   if link.len == 0: return
