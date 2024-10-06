@@ -104,7 +104,7 @@ proc renderHead*(prefs: Prefs; cfg: Config; req: Request; titleText=""; desc="";
                        else: getSmallPic(url)
       link(rel="preload", type="image/png", href=preloadUrl, `as`="image")
 
-      let image = getUrlPrefix(cfg) & getPicUrl(url)
+      let image = getPicUrl(url)
       meta(property="og:image", content=image)
       meta(property="twitter:image:src", content=image)
 
