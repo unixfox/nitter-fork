@@ -51,7 +51,7 @@ link = [
     ['nim_lang/status/1110499584852353024', [
         'nim-lang.org/araq/ownedrefs.…',
         'news.ycombinator.com/item?id…',
-        'teddit.net/r/programming…'
+        'redlib.privacy.com.de/r/programming…'
     ]],
     ['nim_lang/status/1125887775151140864', [
         'en.wikipedia.org/wiki/Nim_(p…'

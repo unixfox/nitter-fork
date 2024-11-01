@@ -104,8 +104,8 @@ genPrefs:
       placeholder: "Piped hostname"
 
     replaceReddit(input, ""):
-      "Reddit -> Teddit/Libreddit"
-      placeholder: "Teddit hostname"
+      "Reddit -> "Redlib"
+      placeholder: "Redlib hostname"
 
 iterator allPrefs*(): Pref =
   for k, v in prefList:
