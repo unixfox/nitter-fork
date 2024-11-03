@@ -96,7 +96,7 @@ genPrefs:
 
   "Link replacements (blank to disable)":
     replaceTwitter(input, ""):
-      "Twitter -> Nitter"
+      "Twitter OR X -> Nitter"
       placeholder: "Nitter hostname"
 
     replaceYouTube(input, ""):
