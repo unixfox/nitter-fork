@@ -11,6 +11,8 @@ const
 let
   twRegex = re"(?<=(?<!\S)https:\/\/|(?<=\s))(www\.|mobile\.)?twitter\.com"
   twLinkRegex = re"""<a href="https:\/\/twitter.com([^"]+)">twitter\.com(\S+)</a>"""
+  xRegex = re"(?<=(?<!\S)https:\/\/|(?<=\s))(www\.|mobile\.)?x\.com"
+  xLinkRegex = re"""<a href="https:\/\/x.com([^"]+)">x\.com(\S+)</a>"""
 
   ytRegex = re(r"([A-z.]+\.)?youtu(be\.com|\.be)", {reStudy, reIgnoreCase})
 
@@ -61,6 +63,11 @@ proc replaceUrls*(body: string; prefs: Prefs; absolute=""): string =
     result = result.replace(cards, prefs.replaceTwitter & "/cards")
     result = result.replace(twRegex, prefs.replaceTwitter)
     result = result.replacef(twLinkRegex, a(
+      prefs.replaceTwitter & "$2", href = https & prefs.replaceTwitter & "$1"))
+
+  if prefs.replaceTwitter.len > 0 and ("x.com" in body):
+    result = result.replace(xRegex, prefs.replaceTwitter)
+    result = result.replacef(xLinkRegex, a(
       prefs.replaceTwitter & "$2", href = https & prefs.replaceTwitter & "$1"))
 
   if prefs.replaceReddit.len > 0 and ("reddit.com" in result or "redd.it" in result):
