@@ -6,6 +6,7 @@ import std/times
 var
   hmacKey: string
   base64Media = false
+  cdnUrl: string
 
 const
   https* = "https://"
@@ -29,6 +30,9 @@ proc setHmacKey*(key: string) =
 proc setProxyEncoding*(state: bool) =
   base64Media = state
 
+proc setCdnUrl*(url: string) =
+  cdnUrl = url
+
 proc getHmac*(data: string): string =
   ($hmac(sha256, hmacKey, data & intToStr(now().year + int(now().month) + now().monthDay)))[0 .. 12]
 
@@ -36,21 +40,23 @@ proc getVidUrl*(link: string): string =
   if link.len == 0: return
   let sig = getHmac(link)
   if base64Media:
-    &"https://cdn.xcancel.com/video/enc/{sig}/{encode(link, safe=true)}"
+    &"{cdnUrl}/video/enc/{sig}/{encode(link, safe=true)}"
   else:
-    &"https://cdn.xcancel.com/video/{sig}/{encodeUrl(link)}"
+    &"{cdnUrl}/video/{sig}/{encodeUrl(link)}"
 
 proc getPicUrl*(link: string): string =
+  let sig = getHmac(link)
   if base64Media:
-    &"https://cdn.xcancel.com/pic/enc/{encode(link, safe=true)}"
+    &"{cdnUrl}/pic/enc/{sig}/{encode(link, safe=true)}"
   else:
-    &"https://cdn.xcancel.com/pic/{encodeUrl(link)}"
+    &"{cdnUrl}/pic/{sig}/{encodeUrl(link)}"
 
 proc getOrigPicUrl*(link: string): string =
+  let sig = getHmac(link)
   if base64Media:
-    &"https://cdn.xcancel.com/pic/orig/enc/{encode(link, safe=true)}"
+    &"{cdnUrl}/pic/orig/enc/{sig}/{encode(link, safe=true)}"
   else:
-    &"https://cdn.xcancel.com/pic/orig/{encodeUrl(link)}"
+    &"{cdnUrl}/pic/orig/{sig}/{encodeUrl(link)}"
 
 proc filterParams*(params: Table): seq[(string, string)] =
   for p in params.pairs():

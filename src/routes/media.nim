@@ -90,8 +90,12 @@ proc createMediaRouter*(cfg: Config) =
     get "/pic/?":
       resp Http404
 
-    get re"^\/pic\/orig\/(enc)?\/?(.+)":
-      var url = decoded(request, 1)
+    get re"^\/pic\/orig\/(enc)?\/?(.+)\/(.+)$":
+      var url = decoded(request, 2)
+
+      if getHmac(url) != request.matches[1]:
+        resp Http403, showError("Failed to verify signature", cfg)
+
       if "twimg.com" notin url:
         url.insert(twimg)
       if not url.startsWith(https):
@@ -104,8 +108,12 @@ proc createMediaRouter*(cfg: Config) =
       let code = await proxyMedia(request, url)
       check code
 
-    get re"^\/pic\/(enc)?\/?(.+)":
-      var url = decoded(request, 1)
+    get re"^\/pic\/(enc)?\/?(.+)\/(.+)$":
+      var url = decoded(request, 2)
+
+      if getHmac(url) != request.matches[1]:
+        resp Http403, showError("Failed to verify signature", cfg)
+
       if "twimg.com" notin url:
         url.insert(twimg)
       if not url.startsWith(https):
