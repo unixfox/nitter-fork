@@ -1,5 +1,7 @@
 # About
 
+Xcancel is an instance of Nitter.
+
 Nitter is a free and open source alternative Twitter front-end focused on
 privacy and performance. The source is available on GitHub at
 <https://github.com/zedeus/nitter>
