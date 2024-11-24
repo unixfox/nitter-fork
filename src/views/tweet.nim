@@ -10,7 +10,7 @@ import general
 const doctype = "<!DOCTYPE html>\n"
 
 proc renderMiniAvatar(user: User; prefs: Prefs): VNode =
-  let url = getPicUrl(user.getUserPic("_mini"))
+  let url = getPicUrl(user.getUserPic("_mini"), prefs.proxyPics)
   buildHtml():
     img(class=(prefs.getAvatarClass & " mini"), src=url)
 
@@ -28,7 +28,7 @@ proc renderHeader(tweet: Tweet; retweet: string; pinned: bool; prefs: Prefs): VN
         var size = "_bigger"
         if not prefs.autoplayGifs and tweet.user.userPic.endsWith("gif"):
           size = "_400x400"
-        genImg(tweet.user.getUserPic(size), class=prefs.getAvatarClass)
+        genImg(tweet.user.getUserPic(size), prefs.proxyPics, class=prefs.getAvatarClass)
 
       tdiv(class="tweet-name-row"):
         tdiv(class="fullname-and-username"):
@@ -39,7 +39,7 @@ proc renderHeader(tweet: Tweet; retweet: string; pinned: bool; prefs: Prefs): VN
           a(href=getLink(tweet), title=tweet.getTime):
             text tweet.getShortTime
 
-proc renderAlbum(tweet: Tweet): VNode =
+proc renderAlbum(tweet: Tweet; proxyPics: bool): VNode =
   let
     groups = if tweet.photos.len < 3: @[tweet.photos]
              else: tweet.photos.distribute(2)
@@ -53,8 +53,8 @@ proc renderAlbum(tweet: Tweet): VNode =
             let
               named = "name=" in photo
               small = if named: photo else: photo & smallWebp
-            a(href=getOrigPicUrl(photo), class="still-image", target="_blank"):
-              genImg(small)
+            a(href=getOrigPicUrl(photo, proxyPics), class="still-image", target="_blank"):
+              genImg(small, proxyPics)
 
 proc isPlaybackEnabled(prefs: Prefs; playbackType: VideoType): bool =
   case playbackType
@@ -90,7 +90,7 @@ proc renderVideo*(video: Video; prefs: Prefs; path: string): VNode =
   buildHtml(tdiv(class="attachments card")):
     tdiv(class="gallery-video" & container):
       tdiv(class="attachment video-container"):
-        let thumb = getSmallPic(video.thumb)
+        let thumb = getSmallPic(video.thumb, prefs.proxyPics)
         if not video.available:
           img(src=thumb)
           renderVideoUnavailable(video)
@@ -122,9 +122,9 @@ proc renderGif(gif: Gif; prefs: Prefs): VNode =
   buildHtml(tdiv(class="attachments media-gif")):
     tdiv(class="gallery-gif", style={maxHeight: "unset"}):
       tdiv(class="attachment"):
-        video(class="gif", poster=getSmallPic(gif.thumb), autoplay=prefs.autoplayGifs,
+        video(class="gif", poster=getSmallPic(gif.thumb, prefs.proxyPics), autoplay=prefs.autoplayGifs,
               controls="", muted="", loop=""):
-          source(src=getPicUrl(gif.url), `type`="video/mp4")
+          source(src=getPicUrl(gif.url, prefs.proxyPics), `type`="video/mp4")
 
 proc renderPoll(poll: Poll): VNode =
   buildHtml(tdiv(class="poll")):
@@ -141,10 +141,10 @@ proc renderPoll(poll: Poll): VNode =
     span(class="poll-info"):
       text &"{insertSep($poll.votes, ',')} votes • {poll.status}"
 
-proc renderCardImage(card: Card): VNode =
+proc renderCardImage(card: Card; proxyPics: bool): VNode =
   buildHtml(tdiv(class="card-image-container")):
     tdiv(class="card-image"):
-      img(src=getPicUrl(card.image), alt="")
+      img(src=getPicUrl(card.image, proxyPics), alt="")
       if card.kind == player:
         tdiv(class="card-overlay"):
           tdiv(class="overlay-circle"):
@@ -172,7 +172,7 @@ proc renderCard(card: Card; prefs: Prefs; path: string): VNode =
     else:
       a(class="card-container", href=url):
         if card.image.len > 0:
-          renderCardImage(card)
+          renderCardImage(card, prefs.proxyPics)
         tdiv(class="card-content-container"):
           renderCardContent(card)
 
@@ -214,7 +214,7 @@ proc renderMediaTags(tags: seq[User]): VNode =
 proc renderQuoteMedia(quote: Tweet; prefs: Prefs; path: string): VNode =
   buildHtml(tdiv(class="quote-media-container")):
     if quote.photos.len > 0:
-      renderAlbum(quote)
+      renderAlbum(quote, prefs.proxyPics)
     elif quote.video.isSome:
       renderVideo(quote.video.get(), prefs, path)
     elif quote.gif.isSome:
@@ -324,7 +324,7 @@ proc renderTweet*(tweet: Tweet; prefs: Prefs; path: string; class=""; index=0;
         renderCard(tweet.card.get(), prefs, path)
 
       if tweet.photos.len > 0:
-        renderAlbum(tweet)
+        renderAlbum(tweet, prefs.proxyPics)
       elif tweet.video.isSome:
         renderVideo(tweet.video.get(), prefs, path)
         views = tweet.video.get().views

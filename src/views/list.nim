@@ -12,12 +12,12 @@ proc renderListTabs*(query: Query; path: string): VNode =
     li(class=query.getTabClass(userList)):
       a(href=(path & "/members")): text "Members"
 
-proc renderList*(body: VNode; query: Query; list: List): VNode =
+proc renderList*(body: VNode; query: Query; list: List; proxyPics: bool): VNode =
   buildHtml(tdiv(class="timeline-container")):
     if list.banner.len > 0:
       tdiv(class="timeline-banner"):
-        a(href=getPicUrl(list.banner), target="_blank"):
-          genImg(list.banner)
+        a(href=getPicUrl(list.banner, proxyPics), target="_blank"):
+          genImg(list.banner, proxyPics)
 
     tdiv(class="timeline-header"):
       text &"\"{list.name}\" by @{list.username}"

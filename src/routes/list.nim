@@ -12,7 +12,7 @@ template respList*(list, timeline, title, vnode: typed) =
     resp Http404, showError(&"""List "{@"id"}" not found""", cfg)
 
   let
-    html = renderList(vnode, timeline.query, list)
+    html = renderList(vnode, timeline.query, list, prefs.proxyPics)
     rss = &"""/i/lists/{@"id"}/rss"""
 
   resp renderMain(html, request, cfg, prefs, titleText=title, rss=rss, banner=list.banner)

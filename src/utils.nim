@@ -44,19 +44,37 @@ proc getVidUrl*(link: string): string =
   else:
     &"{cdnUrl}/video/{sig}/{encodeUrl(link)}"
 
-proc getPicUrl*(link: string): string =
-  let sig = getHmac(link)
-  if base64Media:
-    &"{cdnUrl}/pic/enc/{sig}/{encode(link, safe=true)}"
+proc getPicUrl*(link: string, proxyPics: bool): string =
+  if not proxyPics:
+    var url = link
+    if "twimg.com" notin url:
+      url.insert(twimg)
+    if not url.startsWith(https):
+      url.insert(https)
+    & "{url}"
   else:
-    &"{cdnUrl}/pic/{sig}/{encodeUrl(link)}"
+    let sig = getHmac(link)
+    if base64Media:
+      &"{cdnUrl}/pic/enc/{sig}/{encode(link, safe=true)}"
+    else:
+      &"{cdnUrl}/pic/{sig}/{encodeUrl(link)}"
+  
 
-proc getOrigPicUrl*(link: string): string =
-  let sig = getHmac(link)
-  if base64Media:
-    &"{cdnUrl}/pic/orig/enc/{sig}/{encode(link, safe=true)}"
+proc getOrigPicUrl*(link: string, proxyPics: bool): string =
+  if not proxyPics:
+    var url = link
+    if "twimg.com" notin url:
+      url.insert(twimg)
+    if not url.startsWith(https):
+      url.insert(https)
+    url.add("?name=orig")
+    & "{url}"
   else:
-    &"{cdnUrl}/pic/orig/{sig}/{encodeUrl(link)}"
+    let sig = getHmac(link)
+    if base64Media:
+      &"{cdnUrl}/pic/orig/enc/{sig}/{encode(link, safe=true)}"
+    else:
+      &"{cdnUrl}/pic/orig/{sig}/{encodeUrl(link)}"
 
 proc filterParams*(params: Table): seq[(string, string)] =
   for p in params.pairs():

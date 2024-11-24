@@ -88,6 +88,9 @@ genPrefs:
     proxyVideos(checkbox, true):
       "Proxy video streaming through the server (might be slow)"
 
+    proxyPics(checkbox, true):
+      "Proxy pictures through the server (might be slow)"
+
     muteVideos(checkbox, false):
       "Mute videos by default"
 

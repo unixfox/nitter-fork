@@ -96,15 +96,15 @@ proc renderHead*(prefs: Prefs; cfg: Config; req: Request; titleText=""; desc="";
     meta(property="og:locale", content="en_US")
 
     if banner.len > 0 and not banner.startsWith('#'):
-      let bannerUrl = getPicUrl(banner)
+      let bannerUrl = getPicUrl(banner, prefs.proxyPics)
       link(rel="preload", type="image/png", href=bannerUrl, `as`="image")
 
     for url in images:
-      let preloadUrl = if "400x400" in url: getPicUrl(url)
-                       else: getSmallPic(url)
+      let preloadUrl = if "400x400" in url: getPicUrl(url, prefs.proxyPics)
+                       else: getSmallPic(url, prefs.proxyPics)
       link(rel="preload", type="image/png", href=preloadUrl, `as`="image")
 
-      let image = getPicUrl(url)
+      let image = getPicUrl(url, prefs.proxyPics)
       meta(property="og:image", content=image)
       meta(property="twitter:image:src", content=image)
 

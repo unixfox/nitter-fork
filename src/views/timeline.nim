@@ -61,7 +61,7 @@ proc renderUser(user: User; prefs: Prefs): VNode =
     tdiv(class="tweet-body profile-result"):
       tdiv(class="tweet-header"):
         a(class="tweet-avatar", href=("/" & user.username)):
-          genImg(user.getUserPic("_bigger"), class=prefs.getAvatarClass)
+          genImg(user.getUserPic("_bigger"), prefs.proxyPics, class=prefs.getAvatarClass)
 
         tdiv(class="tweet-name-row"):
           tdiv(class="fullname-and-username"):

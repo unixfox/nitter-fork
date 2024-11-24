@@ -5,11 +5,11 @@ import ".."/[types, utils]
 
 const smallWebp* = "?name=small&format=webp"
 
-proc getSmallPic*(url: string): string =
+proc getSmallPic*(url: string; proxyPics: bool): string =
   result = url
   if "?" notin url and not url.endsWith("placeholder.png"):
     result &= smallWebp
-  result = getPicUrl(result)
+  result = getPicUrl(result, proxyPics)
 
 proc icon*(icon: string; text=""; title=""; class=""; href=""): VNode =
   var c = "icon-" & icon
@@ -89,9 +89,9 @@ proc genDate*(pref, state: string): VNode =
     input(name=pref, `type`="date", value=state)
     icon "calendar"
 
-proc genImg*(url: string; class=""): VNode =
+proc genImg*(url: string; proxyPics: bool; class="";): VNode =
   buildHtml():
-    img(src=getPicUrl(url), class=class, alt="")
+    img(src=getPicUrl(url, proxyPics), class=class, alt="")
 
 proc getTabClass*(query: Query; tab: QueryKind): string =
   if query.kind == tab: "tab-item active"

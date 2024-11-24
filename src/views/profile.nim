@@ -16,13 +16,13 @@ proc renderUserCard*(user: User; prefs: Prefs): VNode =
   buildHtml(tdiv(class="profile-card")):
     tdiv(class="profile-card-info"):
       let
-        url = getPicUrl(user.getUserPic())
+        url = getPicUrl(user.getUserPic(), prefs.proxyPics)
         size =
           if prefs.autoplayGifs and user.userPic.endsWith("gif"): ""
           else: "_400x400"
 
       a(class="profile-card-avatar", href=url, target="_blank"):
-        genImg(user.getUserPic(size))
+        genImg(user.getUserPic(size), prefs.proxyPics)
 
       tdiv(class="profile-card-tabs-name"):
         linkUser(user, class="profile-card-fullname")
@@ -63,7 +63,7 @@ proc renderUserCard*(user: User; prefs: Prefs): VNode =
           renderStat(user.followers, "followers")
           renderStat(user.likes, "likes")
 
-proc renderPhotoRail(profile: Profile): VNode =
+proc renderPhotoRail(profile: Profile; proxyPics: bool): VNode =
   let count = insertSep($profile.user.media, ',')
   buildHtml(tdiv(class="photo-rail-card")):
     tdiv(class="photo-rail-header"):
@@ -82,16 +82,16 @@ proc renderPhotoRail(profile: Profile): VNode =
           if "format" in photo.url or "placeholder" in photo.url: ""
           else: ":thumb"
         a(href=(&"/{profile.user.username}/status/{photo.tweetId}#m")):
-          genImg(photo.url & photoSuffix)
+          genImg(photo.url & photoSuffix, proxyPics)
 
-proc renderBanner(banner: string): VNode =
+proc renderBanner(banner: string; proxyPics: bool): VNode =
   buildHtml():
     if banner.len == 0:
       a()
     elif banner.startsWith('#'):
       a(style={backgroundColor: banner})
     else:
-      a(href=getPicUrl(banner), target="_blank"): genImg(banner)
+      a(href=getPicUrl(banner, proxyPics), target="_blank"): genImg(banner, proxyPics)
 
 proc renderProtected(username: string): VNode =
   buildHtml(tdiv(class="timeline-container")):
@@ -105,13 +105,13 @@ proc renderProfile*(profile: var Profile; prefs: Prefs; path: string): VNode =
   buildHtml(tdiv(class="profile-tabs")):
     if not prefs.hideBanner:
       tdiv(class="profile-banner"):
-        renderBanner(profile.user.banner)
+        renderBanner(profile.user.banner, prefs.proxyPics)
 
     let sticky = if prefs.stickyProfile: " sticky" else: ""
     tdiv(class=("profile-tab" & sticky)):
       renderUserCard(profile.user, prefs)
       if profile.photoRail.len > 0:
-        renderPhotoRail(profile)
+        renderPhotoRail(profile, prefs.proxyPics)
 
     if profile.user.protected:
       renderProtected(profile.user.username)
