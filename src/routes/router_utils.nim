@@ -9,7 +9,7 @@ export utils, prefs, types, uri
 template savePref*(pref, value: string; req: Request; expire=false) =
   if not expire or pref in cookies(req):
     setCookie(pref, value, daysForward(when expire: -10 else: 360),
-              httpOnly=true, secure=cfg.useHttps, sameSite=None)
+              httpOnly=false, secure=cfg.useHttps, sameSite=None)
 
 template cookiePrefs*(): untyped {.dirty.} =
   getPrefs(cookies(request))
