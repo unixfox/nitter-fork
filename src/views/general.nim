@@ -68,6 +68,9 @@ proc renderHead*(prefs: Prefs; cfg: Config; req: Request; titleText=""; desc="";
     link(rel="search", type="application/opensearchdescription+xml", title=cfg.title,
                             href=opensearchUrl)
 
+    if not prefs.proxyPics and not prefs.proxyVideos:
+      script(src="/js/proxyneededcheck.js")
+
     if canonical.len > 0:
       link(rel="canonical", href=canonical)
 
