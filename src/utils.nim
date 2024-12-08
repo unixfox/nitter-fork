@@ -39,7 +39,9 @@ proc getHmac*(data: string): string =
 proc getVidUrl*(link: string): string =
   if link.len == 0: return
   let sig = getHmac(link)
-  if base64Media:
+  if "m3u8" in link:
+    &"/video/{sig}/{encodeUrl(link)}"
+  elif base64Media:
     &"{cdnUrl}/video/enc/{sig}/{encode(link, safe=true)}"
   else:
     &"{cdnUrl}/video/{sig}/{encodeUrl(link)}"
