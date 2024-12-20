@@ -42,7 +42,7 @@ proc timelineRss*(req: Request; cfg: Config; query: Query): Future[Rss] {.async.
     let rss = renderTimelineRss(profile, cfg, multi=(names.len > 1))
     return Rss(feed: rss, cursor: profile.tweets.bottom)
 
-template respRss*(rss, page) =
+template respRss*(rss; page; cached = false ) =
   if rss.cursor.len == 0:
     let info = case page
                of "User": " \"" & @"name" & "\" "
@@ -54,7 +54,7 @@ template respRss*(rss, page) =
     resp Http404, showError(getSuspended(@"name"), cfg)
 
   let headers = {"Content-Type": "application/rss+xml; charset=utf-8",
-                 "Min-Id": rss.cursor}
+                 "Min-Id": rss.cursor, "X-Cache": $cached}
   resp Http200, headers, rss.feed
 
 proc createRssRouter*(cfg: Config) =
@@ -74,7 +74,7 @@ proc createRssRouter*(cfg: Config) =
 
       var rss = await getCachedRss(key)
       if rss.cursor.len > 0:
-        respRss(rss, "Search")
+        respRss(rss, "Search", true)
 
       let tweets = await getGraphTweetSearch(query, cursor)
       rss.cursor = tweets.bottom
@@ -92,7 +92,7 @@ proc createRssRouter*(cfg: Config) =
 
       var rss = await getCachedRss(key)
       if rss.cursor.len > 0:
-        respRss(rss, "User")
+        respRss(rss, "User", true)
 
       rss = await timelineRss(request, cfg, Query(fromUser: @[name]))
 
@@ -120,7 +120,7 @@ proc createRssRouter*(cfg: Config) =
 
       var rss = await getCachedRss(key)
       if rss.cursor.len > 0:
-        respRss(rss, "User")
+        respRss(rss, "User", true)
 
       rss = await timelineRss(request, cfg, query)
 
@@ -153,7 +153,7 @@ proc createRssRouter*(cfg: Config) =
 
       var rss = await getCachedRss(key)
       if rss.cursor.len > 0:
-        respRss(rss, "List")
+        respRss(rss, "List", true)
 
       let
         list = await getCachedList(id=id)
