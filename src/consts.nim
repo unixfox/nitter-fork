@@ -16,7 +16,7 @@ const
   graphUserTweets* = graphql / "3JNH4e9dq1BifLxAa3UMWg/UserWithProfileTweetsQueryV2"
   graphUserTweetsAndReplies* = graphql / "8IS8MaO-2EN6GZZZb8jF0g/UserWithProfileTweetsAndRepliesQueryV2"
   graphUserMedia* = graphql / "PDfFf8hGeJvUCiTyWtw4wQ/MediaTimelineV2"
-  graphTweet* = graphql / "q94uRCEn65LZThakYcPT6g/TweetDetail"
+  graphTweet* = graphql / "Vorskcd2tZ-tc4Gx3zbk4Q/ConversationTimelineV2"
   graphTweetResult* = graphql / "sITyJdhRPpvpEjg4waUmTA/TweetResultByIdQuery"
   graphSearchTimeline* = graphql / "gkjsKepM6gl_HmFWoWKfgg/SearchTimeline"
   graphListById* = graphql / "iTpgCtbdxrsJfyx0cFjHqg/ListByRestId"
@@ -80,7 +80,9 @@ const
   "unified_cards_ad_metadata_container_dynamic_card_content_query_enabled": false,
   "verified_phone_label_enabled": false,
   "vibe_api_enabled": false,
-  "view_counts_everywhere_api_enabled": false
+  "view_counts_everywhere_api_enabled": false,
+  "articles_api_enabled": false, 
+  "immersive_video_status_linkable_timestamps": false
 }""".replace(" ", "").replace("\n", "")
 
   tweetVariables* = """{
