@@ -35,7 +35,7 @@ jobs:
           push: true
           tags: quay.io/unixfox/nitter:latest,quay.io/unixfox/nitter:${{ github.sha }}
   build-docker-arm64:
-    runs-on: buildjet-2vcpu-ubuntu-2204-arm
+    runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v3
         with:
