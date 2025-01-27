@@ -84,7 +84,7 @@ proc getGraphTweet(id: string; after=""): Future[Conversation] {.async.} =
     variables = tweetVariables % [id, cursor]
     params = {"variables": variables, "features": gqlFeatures}
     js = await fetch(graphTweet ? params, Api.tweetDetail)
-  result = parseGraphConversation(js, id)
+  result = parseGraphConversation(js, id, true)
 
 proc getReplies*(id, after: string): Future[Result[Chain]] {.async.} =
   result = (await getGraphTweet(id, after)).replies
