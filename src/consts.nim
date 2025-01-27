@@ -6,9 +6,6 @@ const
   consumerSecret* = "Bcs59EFbbsdF6Sl9Ng71smgStWEGwXXKSjYvPVt7qys"
 
   api = parseUri("https://api.x.com")
-  activate* = $(api / "1.1/guest/activate.json")
-
-  photoRail* = api / "1.1/statuses/media_timeline.json"
 
   graphql = api / "graphql"
   graphUser* = graphql / "u7wQyGi6oExe8_TRWGMq4Q/UserResultByScreenNameQuery"
